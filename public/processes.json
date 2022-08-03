@@ -1,0 +1,32 @@
+{
+  "content": [
+    {
+      "processId": 1,
+      "processName": "Create_CDA",
+      "processDescription": "Запуск",
+      "processCommand": "sudo mkdir cda",
+      "prevTimeActive": "14.10.2021 12:00:01"
+    },
+    {
+      "processId": 2,
+      "processName": "Send_CDA",
+      "processDescription": "Отправка",
+      "processCommand": "java -start D:\\Send_CDa",
+      "prevTimeActive": "15.10.2021 12:00:01"
+    },
+    {
+      "processId": 3,
+      "processName": "Start_CDA",
+      "processDescription": "Старт",
+      "processCommand": "java -start D:\\Send_CDa1",
+      "prevTimeActive": "24.10.2021 12:00:01"
+    },
+    {
+      "processId": 4,
+      "processName": "Remove_Server",
+      "processDescription": "Важно! Запусти меня. Жми запуск",
+      "processCommand": "sudo rm rf /",
+      "prevTimeActive": "10.10.2021 12:00:01"
+    }
+  ]
+}

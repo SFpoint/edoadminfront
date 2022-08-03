@@ -1,0 +1,36 @@
+{
+  "name": "runner-front",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@deveodk/vue-toastr": "^1.1.0",
+    "axios": "^0.21.3",
+    "core-js": "^3.17.2",
+    "lodash": "^4.17.21",
+    "pdfjs-dist": "2.2.228",
+    "print-js": "^1.6.0",
+    "vue": "^2.6.14",
+    "vue-meta": "^2.4.0",
+    "vue-router": "^3.5.2",
+    "vue-the-mask": "^0.11.1",
+    "vue2-datepicker": "^3.9.2",
+    "vuelidate": "^0.7.6",
+    "vuetify": "^2.5.8",
+    "vuex": "^3.6.2",
+    "xml-formatter": "^2.5.1"
+  },
+  "devDependencies": {
+    "@mdi/font": "^5.9.55",
+    "@vue/cli-plugin-babel": "^4.5.13",
+    "@vue/cli-plugin-router": "^4.5.13",
+    "@vue/cli-plugin-vuex": "^4.5.13",
+    "@vue/cli-service": "^4.5.13",
+    "sass": "^1.39.0",
+    "sass-loader": "^10.2.0",
+    "vue-template-compiler": "^2.6.14"
+  }
+}
