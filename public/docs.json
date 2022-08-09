@@ -1,0 +1,28 @@
+{
+    "content": [
+      {
+        "id": 1,
+        "name": "ОПОП",
+        "nameEng": "OPOP",
+        "Type": "xmls"
+      },
+      {
+        "id": 2,
+        "name": "О",
+        "nameEng": "O",
+        "Type": "pdf"
+      },
+      {
+        "id": 3,
+        "name": "ОП",
+        "nameEng": "OP",
+        "Type": "excel"
+      },
+      {
+        "id": 4,
+        "name": "ОПО",
+        "nameEng": "OPO",
+        "Type": "word"
+      }
+    ]
+  }

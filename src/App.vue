@@ -63,7 +63,14 @@ export default {
         text: "Логи процессов",
         route: "/logs",
         allowRoles: ['ROLE_ADMIN']
-      }
+      },
+      {
+        id: 3,
+        icon: 'mdi-book-edit-outline',
+        text: "Редактор",
+        route: "/Edit",
+        allowRoles: ['ROLE_ADMIN', 'ROLE_EMPLOYEE']
+      },
     ]
   }),
 
@@ -158,4 +165,5 @@ body {
   background-color: #B0B0B0;
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+
 </style>

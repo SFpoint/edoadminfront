@@ -3,7 +3,7 @@
     <v-btn class="left-menu-toggler pl-3" plain :title="mini ? 'Показать меню' : 'Скрыть меню'" @click="mini = !mini" >
       <v-icon class="icon">{{ mini ? 'mdi-chevron-double-right' : 'mdi-chevron-double-left' }}</v-icon>
     </v-btn>
-
+    
     <v-navigation-drawer
       :clipped="false"
       v-model="drawer"
@@ -17,6 +17,7 @@
       permanent
     >
       <MenuLinks :links="links" />
+      
     </v-navigation-drawer>
   </div>
 </template>
