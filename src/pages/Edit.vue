@@ -6,10 +6,10 @@
     <div class="mx-4" v-else>
       <PageTitle title="Редактор" />
                 <v-data-table
-            v-if="docs.length"
+            v-if="DocTypes.list.length"
             :loading="tableLoading"
             :headers="tableHeaders"
-            :items="docs"
+            :items="DocTypes.list"
             loading-text="Загрузка"
             hide-default-footer
             class="table elevation-1"
@@ -17,9 +17,6 @@
             <template v-slot:item.actions="{ item }">
               <v-icon color="lightGrey" class="mr-1 edit-btn" size="22" title="Редактировать" @click="edit(item)">
                 mdi-pencil-outline
-              </v-icon>
-              <v-icon color="lightGrey" class="remove-btn" size="22" title="Удалить" @click="remove(item)">
-                mdi-trash-can-outline
               </v-icon>
             </template>
                       <template slot="no-data">
@@ -32,14 +29,15 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
+import { docTypeApi } from '@/api'
+import {DocTypes} from '@/models'
 
 
 export default {
- name: 'Edit',
+name: 'docType',
 
   metaInfo: {
     title: 'Редактор'
@@ -71,9 +69,8 @@ async created() {
       { text: 'Тип документа', value: 'Type', sortable: false, align: 'center',},
       { text: 'Действия', value: 'actions', sortable: false, align: 'center', width: '130px' }
     ],
-    docs: [],
+    DocTypes: new DocTypes(),
         tableLoading: false,
-    dataLoaded: false,
           dataLoaded: false
         }
     },
@@ -102,9 +99,13 @@ async created() {
     },
 
       async getDocType() {
-      const { data } = await axios.get('/docs.json')
+try{
+        const { data } = await docTypeApi.getDocType()
       this.docs = data.content
-      console.log(this.docs)
+}
+catch (e){
+  console.log(e)
+}
     },
   }
 }
