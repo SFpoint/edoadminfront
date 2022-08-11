@@ -5,11 +5,12 @@
     </div>
     <div class="mx-4" v-else>
       <PageTitle title="Редактор" />
-                <v-data-table
-            v-if="DocTypes.list.length"
+          <v-data-table
+            v-if="docs.length"
             :loading="tableLoading"
             :headers="tableHeaders"
-            :items="DocTypes.list"
+            :items="docs"
+            :items-per-page="40"
             loading-text="Загрузка"
             hide-default-footer
             class="table elevation-1"
@@ -19,7 +20,7 @@
                 mdi-pencil-outline
               </v-icon>
             </template>
-                      <template slot="no-data">
+            <template slot="no-data">
               <div>Таблица пуста</div>
             </template>
           </v-data-table>
@@ -63,10 +64,11 @@ async created() {
     data () {
         return {
               search: {},
+              docs: [],
     tableHeaders: [
       { text: 'Название', value: 'name', sortable: false, align: 'center' },
       { text: 'Name', value: 'nameEng', sortable: false, align: 'center' },
-      { text: 'Тип документа', value: 'Type', sortable: false, align: 'center',},
+      { text: 'Тип документа', value: 'project.name', sortable: false, align: 'center',},
       { text: 'Действия', value: 'actions', sortable: false, align: 'center', width: '130px' }
     ],
     DocTypes: new DocTypes(),
@@ -99,10 +101,11 @@ async created() {
     },
 
       async getDocType() {
-try{
-        const { data } = await docTypeApi.getDocType()
-      this.docs = data.content
-}
+        try{
+        const data  = await docTypeApi.getDocType()
+        this.docs = data
+        console.log(this.docs)  
+        } 
 catch (e){
   console.log(e)
 }

@@ -25,7 +25,7 @@ export default new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
-    { path: "/", redirect: "/processes" },
+    { path: "/", redirect: "/Documents" },
     new Page("/login", "Login", "login"),
     // new Page('/registration/:username/:code', 'Registration', 'registrationConfirm'),
     // new Page('/registration', 'Registration', 'registration'),
@@ -33,7 +33,7 @@ export default new VueRouter({
     // new Page('/forget/:username/:code', 'ForgetPassword', 'forgetConfirm'),
     new Page("/processes", "Processes", "processes"),
     new Page("/logs", "Logs", "logs"),
-    new Page("/Edit", "Edit", "edit"),
+    new Page("/Documents", "Documents", "documents"),
 
     // {
     //   ...new Page('/profile/:contactPersonId', 'Profile/index', 'profile'),

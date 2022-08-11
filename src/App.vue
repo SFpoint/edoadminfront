@@ -52,23 +52,9 @@ export default {
     links: [
       {
         id: 1,
-        icon: 'mdi-rocket-launch',
-        text: "Процессы",
-        route: "/processes",
-        allowRoles: ['ROLE_ADMIN', 'ROLE_EMPLOYEE']
-      },
-      {
-        id: 2,
-        icon: 'mdi-text-box-multiple-outline',
-        text: "Логи процессов",
-        route: "/logs",
-        allowRoles: ['ROLE_ADMIN']
-      },
-      {
-        id: 3,
         icon: 'mdi-book-edit-outline',
         text: "Редактор",
-        route: "/Edit",
+        route: "/Documents",
         allowRoles: ['ROLE_ADMIN', 'ROLE_EMPLOYEE']
       },
     ]
