@@ -27,14 +27,18 @@ export class DocType {
     this.id = null;
     this.name = null;
     this.nameEng = null;
+    this.project = null;
   }
+
   static buildFromAPI(obj) {
     const _this = new DocType();
 
     if (obj) {
-      _this.id = obj.id;
-      _this.name = obj.name;
-      _this.nameEng = obj.nameEng;
+      _this.id = obj.id || null;
+      _this.name = obj.name || null;
+      _this.nameEng = obj.nameEng || null;
+      _this.project =
+        (obj.project && DocsProject.buildFromAPI(obj.project)) || null;
     }
 
     return _this;
