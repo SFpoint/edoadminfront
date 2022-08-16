@@ -53,7 +53,7 @@ export default {
       {
         id: 1,
         icon: 'mdi-book-edit-outline',
-        text: "Редактор",
+        text: "Документы",
         route: "/Documents",
         allowRoles: ['ROLE_ADMIN', 'ROLE_EMPLOYEE']
       },

@@ -39,7 +39,6 @@ import {DocTypes} from '@/models'
 import {DocType} from '@/models'
 
 
-
 export default {
 name: 'docType',
 
