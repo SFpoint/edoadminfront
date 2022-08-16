@@ -4,12 +4,13 @@
     <v-progress-circular class="mt-6" :size="50" color="primary" indeterminate />
     </div>
     <div class="mx-4" v-else>
-      <PageTitle title="Редактор" />
+      <PageTitle title="Документы" />
           <v-data-table
             v-if="docs.length"
             :loading="tableLoading"
             :headers="tableHeaders"
             :items="docs"
+
             :items-per-page="40"
             loading-text="Загрузка"
             hide-default-footer
@@ -35,6 +36,8 @@ import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
 import { docTypeApi } from '@/api'
 import {DocTypes} from '@/models'
+import {DocType} from '@/models'
+
 
 
 export default {
@@ -61,7 +64,7 @@ async created() {
   },
 
 
-    data () {
+  data () {
         return {
               search: {},
               docs: [],
@@ -72,10 +75,11 @@ async created() {
       { text: 'Действия', value: 'actions', sortable: false, align: 'center', width: '130px' }
     ],
     DocTypes: new DocTypes(),
-        tableLoading: false,
-          dataLoaded: false
-        }
-    },
+    tableLoading: false,
+    dataLoaded: false,
+    selectedItem: null,
+    }
+  },
 
   computed: {
     ...mapGetters('user', ['isOperatorRoles']),
@@ -110,8 +114,14 @@ catch (e){
   console.log(e)
 }
     },
+    edit(item) {
+    this.selectedItem = item
+    this.$router.push({name: 'documentEdit', params: {DocType}})
+    }
   }
 }
+
+
 </script>
 
 <style>

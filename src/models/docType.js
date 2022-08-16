@@ -12,7 +12,7 @@ export class DocTypes {
     this.list.splice(index, 1, DocType.buildFromAPI(obj));
   }
 
-  removeDocType(processId) {
+  removeDocType(id) {
     const index = this.list.findIndex((el) => el.id === id);
     this.list.splice(index, 1);
   }
@@ -26,6 +26,7 @@ export class DocType {
   constructor() {
     this.id = null;
     this.name = null;
+    this.nameEng = null;
   }
   static buildFromAPI(obj) {
     const _this = new DocType();
@@ -33,6 +34,7 @@ export class DocType {
     if (obj) {
       _this.id = obj.id;
       _this.name = obj.name;
+      _this.nameEng = obj.nameEng;
     }
 
     return _this;
