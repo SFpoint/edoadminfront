@@ -132,7 +132,7 @@ export default {
     async getProcessesList() {
       const { data } = await axios.get('/processes.json')
       data.content.forEach(obj => this.processes.addProcess(obj))
-      console.log(this.processes)
+      console.log(data)
     },
 
     run(item) {

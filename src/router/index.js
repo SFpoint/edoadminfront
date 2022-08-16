@@ -36,7 +36,6 @@ export default new VueRouter({
     new Page("/processes", "Processes", "processes"),
     new Page("/logs", "Logs", "logs"),
     new Page("/Documents", "Documents", "documents"),
-    new Page("/Edit", "Edit", "edit"),
     new Page("/Edit", "Edit", "documentEdit", true),
     // {
     //   ...new Page('/profile/:contactPersonId', 'Profile/index', 'profile'),

@@ -6,10 +6,10 @@
     <div class="mx-4" v-else>
       <PageTitle title="Документы" />
           <v-data-table
-            v-if="docs.length"
+            v-if="DocTypes.list.length"
             :loading="tableLoading"
             :headers="tableHeaders"
-            :items="docs"
+            :items="DocTypes.list"
 
             :items-per-page="40"
             loading-text="Загрузка"
@@ -36,8 +36,6 @@ import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
 import { docTypeApi } from '@/api'
 import {DocTypes} from '@/models'
-import {DocType} from '@/models'
-
 
 export default {
 name: 'docType',
@@ -66,7 +64,6 @@ async created() {
   data () {
         return {
               search: {},
-              docs: [],
     tableHeaders: [
       { text: 'Название', value: 'name', sortable: false, align: 'center' },
       { text: 'Name', value: 'nameEng', sortable: false, align: 'center' },
@@ -79,12 +76,15 @@ async created() {
     selectedItem: null,
     }
   },
+  props:{
+    editDoc: Object
+  },
 
   computed: {
     ...mapGetters('user', ['isOperatorRoles']),
 
     selectedItemName() {
-      return this.selectedItem?.processName
+      return this.selectedItem?.Name
     }
   },
 
@@ -103,20 +103,26 @@ async created() {
       document.querySelector('html').style.overflowY = 'visible'
     },
 
-      async getDocType() {
-        try{
+    async getDocType() {
         const data  = await docTypeApi.getDocType()
-        this.docs = data
-        console.log(this.docs)  
-        } 
-catch (e){
-  console.log(e)
-}
+      data.forEach(obj => this.DocTypes.addDocType(obj))
+      console.log(data)
     },
-    edit(item) {
+//      async getDocType() {
+//        try{
+//        const data  = await docTypeApi.getDocType()
+//      data.forEach(obj => this.DocTypes.addDocType(obj))
+//        console.log(this.docs) 
+//        }
+//catch (e){
+//  console.log(e.data)
+//}
+//    },
+  edit(item){
     this.selectedItem = item
-    this.$router.push({name: 'documentEdit', params: {DocType}})
-    }
+    const editDoc ={docName: this.docName, docType: this.docType}
+    this.$router.push({name: 'documentEdit', params: {editDoc}})
+  }
   }
 }
 
