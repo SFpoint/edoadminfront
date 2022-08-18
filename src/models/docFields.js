@@ -1,29 +1,22 @@
 import { DocFieldsType } from "./docFieldType";
 
-export class Field {
+export class DocFields {
   constructor() {
     this.keyName = null;
-    this.label = null;
-    this.minLength = null;
-    this.maxLength = null;
     this.number = null;
-    this.regular = null;
-    this.required = null;
-    this.dictionaryField = null;
     this.docFieldsType = null;
+    this.id = null;
+    this.dictionaryField = null;
+    this.docDescription = null;
   }
 
   static buildFromAPI(obj) {
-    const _this = new Field();
-
+    const _this = new DocFields();
     if (obj) {
       _this.keyName = obj.keyName || null;
-      _this.label = obj.label || null;
-      _this.minLength = obj.minLength || null;
-      _this.maxLength = obj.maxLength || null;
       _this.number = obj.number || null;
-      _this.regular = obj.regular || null;
-      _this.required = obj.required || null;
+      _this.id = obj.id || null;
+      _this.docDescription = obj.docDescription || null;
       _this.dictionaryField = obj.dictionaryField || null;
       _this.docFieldsType =
         (obj.docFieldsType && DocFieldsType.buildFromAPI(obj.docFieldsType)) ||

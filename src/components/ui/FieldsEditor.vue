@@ -1,194 +1,194 @@
 <template>
-<div>
-<v-container>
-    <v-container>
-<v-row>
-    <v-col
-    cols="4">
-            <v-text-field
-    label="Key_name"
-    v-model="chosenFieldCopy.keyName"
-    disabled
-    ></v-text-field>
-    <v-text-field 
-    label="Label"
-    v-model="chosenFieldCopy.label">
-    </v-text-field>
-    </v-col>
-    <v-col
-    cols="4">
-                <v-text-field 
-    label="doc_fields_type"
-    v-model="chosenFieldCopy.docFieldsType.name"
-    >
-    </v-text-field>
-        <v-text-field 
-    label="number"
-    v-model="chosenFieldCopy.number">
-    </v-text-field>
-    </v-col>
-</v-row>
-</v-container>
-<v-container
-class="mt-6">Валидация
-<v-row>
-    <v-col
-    cols="4">
-            <v-text-field
-    label="max_length"
-    v-model="chosenFieldCopy.maxLength"
-    ></v-text-field>
-    <v-text-field 
-    label="stand_valid">
-    </v-text-field>
-    </v-col>
-    <v-col
-    cols="4">
-                <v-text-field 
-    label="min_length"
-    v-model="chosenFieldCopy.minLength"
->
-    </v-text-field>
-        <v-text-field 
-    label="regular"
-    v-model="chosenFieldCopy.regular"
->
-    </v-text-field>
-    </v-col>
-</v-row>
-</v-container>
-<v-container
-v-if="chosenFieldCopy.docFieldsType.name === 'dictionary'"
-class="mt-10">
-<v-row>    
-    <v-col
-    cols="4">
-        <v-text-field
-    label="divider"
-    v-model="chosenFieldCopy.dictionaryField.divider">
-    </v-text-field>
-</v-col>
-<v-col
-cols="4">
-
-            <v-text-field
-            v-for="(keyName, i) in dictionaryFields"
-            :key="i"
-    :label="keyName.name"
-    v-model="keyName.value"
-    >
-    </v-text-field>
-<v-btn
-@click="addDictionaryFields"
->Добавить ключ</v-btn>
-</v-col>
-</v-row>
-</v-container>
-</v-container>
-<v-btn
-@click="saveDictionary"
->Сохранить</v-btn>
-</div>
+    <div>
+        <v-container>
+            <v-container>
+                <v-row>
+                    <v-col cols="4">
+                        <v-text-field
+                        label="Key_name"
+                        v-model="chosenFieldCopy.keyName"
+                        disabled
+                        >           
+                        </v-text-field>
+                        <v-text-field 
+                        label="Label"
+                        v-model="chosenFieldCopy.label">
+                        </v-text-field>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-text-field 
+                        label="doc_fields_type"
+                        v-model="chosenFieldCopy.docFieldsType.name"
+                        >
+                        </v-text-field>
+                        <v-text-field 
+                        label="number"
+                        v-model="chosenFieldCopy.number">
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
+            <v-container
+            class="mt-6">Валидация
+                <v-row>
+                    <v-col
+                    cols="4">
+                        <v-text-field
+                        label="max_length"
+                        v-model="chosenFieldCopy.maxLength"
+                        ></v-text-field>
+                        <v-text-field 
+                        label="stand_valid">
+                        </v-text-field>
+                    </v-col>
+                    <v-col
+                    cols="4">
+                        <v-text-field 
+                        label="min_length"
+                        v-model="chosenFieldCopy.minLength"
+                        >
+                        </v-text-field>
+                        <v-text-field 
+                        label="regular"
+                        v-model="chosenFieldCopy.regular"
+                        >
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
+            <v-container
+            v-if="chosenFieldCopy.docFieldsType.name === 'dictionary'"
+            class="mt-10">
+                <v-row>    
+                    <v-col
+                    cols="4">
+                        <v-text-field
+                        label="divider"
+                        v-model="chosenFieldCopy.dictionaryField.divider">
+                        </v-text-field>
+                    </v-col>
+                    <v-col
+                    cols="4">
+                        <v-text-field
+                        v-for="(keyName, i) in dictionaryFields"
+                        :key="i"
+                        v-model="dictionaryFields[i]"
+                        >
+                        </v-text-field>
+                        <v-btn
+                        @click="addDictionaryFields"
+                        >Добавить ключ</v-btn>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-container>
+        <v-btn
+        @click="saveDictionary"
+        >Сохранить</v-btn>
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
-import { SaveApi } from '@/api'
-import { field } from '@/models'
+import { saveApi } from '@/api'
+
 
 export default {
-name: 'FieldsEditor',
+    name: 'FieldsEditor',
 
     metaInfo: {
-    title: 'Редактор'
+        title: 'Редактор'
     },
 
     components: {
         PageTitle
     },
-async created() {
-    this.hideHtmlOverflow()
-    await this.$store.dispatch('user/getCurrent')
-    await this.checkOperatorRoles()
-    await delay(1000)
-    this.dataLoaded = true
-    console.log('fields', this.fields)
+    async created() {
+        this.hideHtmlOverflow()
+        await this.$store.dispatch('user/getCurrent')
+        await this.checkOperatorRoles()
+        await delay(1000)
+        this.dataLoaded = true
+        console.log('fields', this.fields)
+        if (this.chosenField) {
+            this.chosenFieldCopy = Object.assign(this.chosenField, {});
+            this.chosenFieldCopy.dictionaryField.keyNames.forEach(e => {
+            this.dictionaryFields.push("")
+            })
+        }
     },
 
-destroyed() {
-    this.showHtmlOverflow()
-},
+    destroyed() {
+        this.showHtmlOverflow()
+    },
 
 
     data () {
         return {
-    dataLoaded: false,
-    chosenFieldCopy: {},
-    dictionaryFields: [],
+            dataLoaded: false,
+            chosenFieldCopy: {
+                docFieldsType:{
+                    name: ""
+                }
+            },
+            dictionaryFields: [],
+
         }
     },
-props: {
-    fields: {
-  type: Object,
-  default: null,
-},
-chosenField: {
-   type: Object,
-  default: null, 
-}
-},
-computed: {
-    ...mapGetters('user', ['isOperatorRoles']),
-
-    selectedItemName() {
-    return this.selectedItem?.processNames
-    }
-},
-created () {
-    if (this.chosenField) {
-    this.chosenFieldCopy = Object.assign(this.chosenField, {});
-this.chosenFieldCopy.dictionaryField.keyNames.forEach(e => {
-    this.dictionaryFields.push({name: e, value: ''})
-})
-    }
-},
-watch: {
-chosenField () {
-   if (this.chosenField) {
-    this.chosenFieldCopy = Object.assign(this.chosenField, {});
-     this.dictionaryFields = [];
-this.chosenFieldCopy.dictionaryField.keyNames.forEach(e => {
-    this.dictionaryFields.push({name: e, value: ''})
-})
-    }
-}
-},
-methods:{
-    async checkOperatorRoles() {
-    if (!this.isOperatorRoles) {
-        this.$toastr('error', '', 'Обратитесь к администратору для получения прав доступа')
-        await this.$router.push('/login')
-    }
+    props: {
+        fields: {
+        type: Object,
+        default: null,
+        },
+        chosenField: {
+        type: Object,
+        default: null, 
+        }
     },
-    hideHtmlOverflow() {
-    document.querySelector('html').style.overflowY = 'hidden'
+    computed: {
+        ...mapGetters('user', ['isOperatorRoles']),
+
+        selectedItemName() {
+        return this.selectedItem?.processNames
+        }
     },
 
-    showHtmlOverflow() {
-    document.querySelector('html').style.overflowY = 'visible'
+    watch: {
+        chosenField () {
+                if (this.chosenField) {
+                this.chosenFieldCopy = Object.assign(this.chosenField, {});
+                this.dictionaryFields = [];
+                    this.chosenFieldCopy.dictionaryField.keyNames.forEach(e => {
+                    this.dictionaryFields.push({name: e, value: ''})
+                    })
+            }
+        }
     },
-addDictionaryFields () {
-this.dictionaryFields.push({name: 'Строка массива', value: ''})
-},
-async saveDictionary () {
-    this.chosenFieldCopy.dictionaryField.keyNames = this.dictionaryFields;
-    const data = await SaveApi.SaveChanges(this.chosenFieldCopy)
-    this.field = data
-    console.log(data);
-},
-},
+    methods:{
+        async checkOperatorRoles() {
+            if (!this.isOperatorRoles) {
+            this.$toastr('error', '', 'Обратитесь к администратору для получения прав доступа')
+            await this.$router.push('/login')
+            }
+        },
+        hideHtmlOverflow() {
+        document.querySelector('html').style.overflowY = 'hidden'
+        },
+
+        showHtmlOverflow() {
+        document.querySelector('html').style.overflowY = 'visible'
+        },
+        addDictionaryFields () {
+        this.dictionaryFields.push("")
+        },
+        async saveDictionary () {
+        this.chosenFieldCopy.dictionaryField.keyNames = this.dictionaryFields;
+        //const data = await SaveApi.SaveChanges(this.chosenFieldCopy)
+        console.log(this.chosenFieldCopy);
+        },
+    },
 }
 </script>
 

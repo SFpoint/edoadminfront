@@ -6,7 +6,7 @@
         tile
         >
         <v-list flat>
-            <v-subheader>Документы</v-subheader>
+            <v-subheader>Поля</v-subheader>
             <v-list-item-group
             v-model="FieldsMenu"
             color="primary">

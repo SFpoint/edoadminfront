@@ -1,4 +1,4 @@
-import { DocsProject } from "./DocsProject";
+import { DocsProject } from "./docsProject";
 
 export class DocTypes {
   constructor() {
