@@ -8,15 +8,21 @@
         <v-list flat>
             <v-subheader>Документы</v-subheader>
             <v-list-item-group
-            v-model="fields"
+            v-model="FieldsMenu"
             color="primary">
+            <template
+            v-if="fields"
+            >
             <v-list-item
-            v-for="(fields, i) in fields"
-            :key="i">
+            v-for="(field, i) in sortedFields"
+            :key="i"
+            @click="$emit('choose-field', field)"
+            >
             <v-list-item-title
-            v-text="fields.date">
+            v-text="field.keyName">
             </v-list-item-title>
             </v-list-item>
+            </template>
             </v-list-item-group>
         </v-list>
         </v-card>
@@ -27,12 +33,14 @@
 import { mapGetters } from 'vuex'
 import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
-import { findFieldsApi } from '@/api'
 import {DocTypes} from '@/models'
+
 
 
 export default {
 name: 'MenuFields',
+
+
 
   metaInfo: {
     title: 'Редактор'
@@ -46,8 +54,10 @@ async created() {
     await this.$store.dispatch('user/getCurrent')
     await this.checkOperatorRoles()
     await delay(1000)
-    await this.findFields()
+    // await this.sortedFields()
     this.dataLoaded = true
+    console.log('menu', this.fields);
+
   },
 
   destroyed() {
@@ -57,17 +67,28 @@ async created() {
 
     data () {
         return {
-            search: {},
-            fields: [],
-        DocTypes: new DocTypes(),
-        tableLoading: false,
-        dataLoaded: false
+          search: {},
+          DocTypes: new DocTypes(),
+          tableLoading: false,
+          dataLoaded: false,
+          FieldsMenu: '',
         }
     },
+props: {
+fields: {
+  type: Object,
+  default: null,
+}
+},
 
 computed: {
     ...mapGetters('user', ['isOperatorRoles']),
-
+    sortedFields(){
+    let sortedFields = this.fields.docFields.filter(e => e.keyName !== 'docName');
+    sortedFields = sortedFields.sort((a, b) => { return a.number - b.number; });
+    return sortedFields;
+    //  .sort(number => number % 2 === 0),
+  }
   },
 
   methods:{
@@ -85,18 +106,8 @@ computed: {
       document.querySelector('html').style.overflowY = 'visible'
     },
 
-      async findFields(body) {
-        try{
-        const data  = await findFieldsApi.findFields(body)
-        this.fields = data
-        console.log(body)  
-        } 
-catch (e){
-  console.log(body)
-}
     },
   }
-}
 </script>
 
 <style>
@@ -114,40 +125,4 @@ catch (e){
   color: #90a4ae !important;
 }
 
-.table {
-  overflow-y: auto;
-}
-
-.table >>> .v-data-table__wrapper {
-  overflow: unset;
-}
-
-.table >>> .theme--light.v-progress-linear {
-  height: 2px !important;
-}
-
-.table >>> th {
-  white-space: nowrap;
-}
-
-.table >>> .v-data-table-header th {
-  color: #37474f !important;
-  font-weight: 500 !important
-}
-
-.table >>> tbody tr {
-  color: #37474f !important;
-}
-
-.table >>> tbody tr:hover {
-  background-color: #fff !important;
-}
-
-.table >>> .edit-btn:hover {
-  color: #43A047!important
-}
-
-.table >>> .remove-btn:hover {
-  color: #ff6666 !important
-}
 </style>

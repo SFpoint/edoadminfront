@@ -9,11 +9,17 @@
             <v-row>
                 <v-col
                 cols="2">
-                    <MenuFields/>
+                    <MenuFields
+                    :fields="fields"
+                    @choose-field="chooseField"
+                    />
                 </v-col>
                 <v-col
                 cols="10">
-                    <FieldsEditor/>
+                    <FieldsEditor
+                    :fields="fields"
+                    :chosen-field="chosenField"
+                    />
                 </v-col>
             </v-row>
         </v-container>
@@ -27,6 +33,7 @@ import PageTitle from '@/components/ui/Title'
 import { delay } from '@/scripts'
 import MenuFields from '@/components/ui/MenuFields';
 import FieldsEditor from '@/components/ui/FieldsEditor'
+import { findFieldsApi } from '@/api'
 
 
 export default {
@@ -47,6 +54,7 @@ async created() {
     await this.checkOperatorRoles()
     await delay(1000)
     this.dataLoaded = true
+    await this.findFields(this.$route.params)
     },
 
 destroyed() {
@@ -56,7 +64,9 @@ destroyed() {
 
     data () {
         return {
-    dataLoaded: false
+    dataLoaded: false,
+    fields: null,
+    chosenField: null,
         }
     },
 
@@ -66,6 +76,7 @@ computed: {
     selectedItemName() {
     return this.selectedItem?.processName
     }
+    
 },
 
 methods:{
@@ -83,7 +94,13 @@ methods:{
     document.querySelector('html').style.overflowY = 'visible'
     },
 
-
+ async findFields(editDoc) {
+        const data  = await findFieldsApi.findFields(editDoc)
+        this.fields = data
+        },
+chooseField(field) {
+this.chosenField = field;
+}
 }
 }
 </script>

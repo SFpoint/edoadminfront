@@ -9,35 +9,35 @@ export class DocsProjects {
   }
 
   updateDocsProject(obj) {
-    const index = this.list.findIndex((el) => el.projectId === obj.projectId);
+    const index = this.list.findIndex((el) => el.projectId === obj.project.id);
     this.list.splice(index, 1, DocsProject.buildFromAPI(obj));
   }
 
   removeDocsProject(projectId) {
-    const index = this.list.findIndex((el) => el.projectId === projectId);
+    const index = this.list.findIndex((el) => el.projectId === project.id);
     this.list.splice(index, 1);
   }
 
   checkDocsProjectInList(obj) {
-    return this.list.some((el) => el.projectId === obj.projectId);
+    return this.list.some((el) => el.projectId === obj.project.id);
   }
 }
 
 export class DocsProject {
   constructor() {
-    this.project.id = null;
-    this.project.createdDate = null;
-    this.project.name = null;
-    this.project.modifiedDate = null;
+    this.projectId = null;
+    this.projectCreatedDate = null;
+    this.projectName = null;
+    this.projectModifiedDate = null;
   }
   static buildFromAPI(obj) {
     const _this = new DocsProject();
 
     if (obj) {
-      _this.project.id = obj.id;
-      _this.project.createdDate = obj.createdDate;
-      _this.project.name = obj.name;
-      _this.project.modifiedDate = obj.modifiedDate;
+      _this.projectId = obj.id;
+      _this.projectCreatedDate = obj.createdDate;
+      _this.projectName = obj.name;
+      _this.projectModifiedDate = obj.modifiedDate;
     }
 
     return _this;

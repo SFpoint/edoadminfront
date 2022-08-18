@@ -1,3 +1,5 @@
+import { DocsProject } from "./DocsProject";
+
 export class DocTypes {
   constructor() {
     this.list = [];

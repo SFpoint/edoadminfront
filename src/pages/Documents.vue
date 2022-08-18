@@ -10,7 +10,6 @@
             :loading="tableLoading"
             :headers="tableHeaders"
             :items="DocTypes.list"
-
             :items-per-page="40"
             loading-text="Загрузка"
             hide-default-footer
@@ -76,18 +75,15 @@ async created() {
     selectedItem: null,
     }
   },
-  props:{
-    editDoc: Object
-  },
 
   computed: {
     ...mapGetters('user', ['isOperatorRoles']),
+
 
     selectedItemName() {
       return this.selectedItem?.Name
     }
   },
-
   methods:{
     async checkOperatorRoles() {
       if (!this.isOperatorRoles) {
@@ -106,22 +102,11 @@ async created() {
     async getDocType() {
         const data  = await docTypeApi.getDocType()
       data.forEach(obj => this.DocTypes.addDocType(obj))
-      console.log(data)
     },
-//      async getDocType() {
-//        try{
-//        const data  = await docTypeApi.getDocType()
-//      data.forEach(obj => this.DocTypes.addDocType(obj))
-//        console.log(this.docs) 
-//        }
-//catch (e){
-//  console.log(e.data)
-//}
-//    },
+
   edit(item){
     this.selectedItem = item
-    const editDoc ={docName: this.docName, docType: this.docType}
-    this.$router.push({name: 'documentEdit', params: {editDoc}})
+    this.$router.push({name: 'documentEdit', params: item})
   }
   }
 }
@@ -131,7 +116,7 @@ async created() {
 
 <style>
 .home-tabs li {
-  display: list-item;
+  display: list-;
   text-align: left;
 }
 
